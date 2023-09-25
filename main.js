@@ -98,9 +98,9 @@ const btn = document.querySelectorAll('#like-counter-1')
 
 btn.addEventListener("click", function() {
 
-   incrementa(counter)
+   incrementa(x)
 
-    console.log(incrementa)
+    console.log(incrementa(x))
 })
 let counter = 0
 
