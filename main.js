@@ -63,10 +63,10 @@ posts.forEach(element => {
    <div class="post__header">
        <div class="post-meta">                    
            <div class="post-meta__icon">
-               <img class="profile-pic" src="${element.author.image}" alt="${element.name}">                    
+               <img class="profile-pic" src="${element.author.image}" alt="${element.author.name}">                    
            </div>
            <div class="post-meta__data">
-               <div class="post-meta__author">${element.name}</div>
+               <div class="post-meta__author">${element.author.name}</div>
                <div class="post-meta__time">${element.created}</div>
            </div>                    
        </div>
@@ -84,7 +84,7 @@ posts.forEach(element => {
                </a>
            </div>
            <div class="likes__counter">
-               Piace a <b id="like-counter-1" onclick="incrementa(x)" class="js-likes-counter">${element.likes}</b> persone
+               Piace a <b id="like-counter-1"  class="js-likes-counter">${element.likes}</b> persone
            </div>
        </div> 
    </div>            
@@ -94,17 +94,57 @@ posts.forEach(element => {
 ` 
 });
 
-const btn = document.querySelectorAll('#like-counter-1')
+//1.aggiungere la classe per cambiare il colore
+//2.aumentare il numero di like
+//3.per il primo tu ora hai un array con tutti i tuoi btn
+//4.cicli con forEach il tuo array
+//5.a ogni elemento applichi addEventListern
+//6.al click sull'elemento cliccato aggiungi la classe
 
-btn.addEventListener("click", function() {
+const btn = document.querySelectorAll('.js-like-button');
+const arrayCounter= document.querySelectorAll('.js-likes-counter');
 
-   incrementa(x)
+console.log(btn)
 
-    console.log(incrementa(x))
-})
-let counter = 0
+const classLike = document.querySelector('.like-button--liked');
 
-function incrementa(x) {
-    x=x+1;
-    document.write(x);
-}
+
+btn.forEach((element,index) => {
+   
+    let flag = true;
+    element.addEventListener('click', function(event){
+        event.preventDefault();
+        // vediamo l'indice del bottone abbiamo tutti i dati
+        const post = posts[index];
+        // abbiamo la zona dove debbiamo stamapre 
+        const counter = arrayCounter[index];
+        console.log(element)
+        console.log(post);
+        // prendo l'indice stampo in html prima incrementa e poi stampa
+        //di base è vera 
+        
+        // verifichiamo se la condizione è vera 
+        if(flag === true){
+            //visto che siamo entrati al ckick la seconda volta sarà falso quindi ci sposterà dentro ELSE
+            flag = false
+            counter.innerHTML = ++post.likes;
+
+        }else{
+            flag = true
+            counter.innerHTML = --post.likes;
+
+        }
+       
+
+        element.classList.toggle('like-button--liked');
+
+       
+        
+    });
+
+    
+    
+    
+    
+});
+   
